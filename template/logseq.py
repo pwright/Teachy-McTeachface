@@ -40,7 +40,28 @@ def clean_markdown_content(content, is_topic_md=False):
     # Recombine YAML header (if present) with cleaned markdown content
     return (yaml_header + '\n' + cleaned_markdown).strip()
 
-# Function to process and move unit files with cleaning, and report the number of indentations removed
+# Function to process course.md and move to destination
+def process_course_file(source, destination):
+    course_md_path = os.path.join(source, 'pages', 'course.md')
+    if not os.path.exists(course_md_path):
+        print(f"File {course_md_path} not found.")
+        return
+
+    # Read and clean content
+    with open(course_md_path, 'r') as f:
+        content = f.read()
+
+    # Clean the markdown content
+    cleaned_content = clean_markdown_content(content)
+
+    # Write to the destination directory directly as 'course.md'
+    new_course_md_path = os.path.join(destination, 'course.md')
+    with open(new_course_md_path, 'w') as f:
+        f.write(cleaned_content)
+
+    print(f'Processed {course_md_path} -> {new_course_md_path} (cleaned content)')
+
+# Function to process and move unit files with cleaning (excluding course.md)
 def process_and_move_unit_file(unit_file, destination_dir):
     new_file_path = os.path.join(destination_dir, 'topic.md')
 
@@ -65,6 +86,10 @@ def parse_filename_and_move(source, destination):
     for root, dirs, files in os.walk(pages_dir):
         for file in files:
             if file.endswith('.md'):
+                if file == 'course.md':
+                    # Skip course.md, handled separately
+                    continue
+
                 if '___' in file:
                     # Handle files with '___' in the name by creating nested directories
                     original_md_path = os.path.join(root, file)
@@ -145,6 +170,9 @@ def main():
 
     # Populate destination with the template
     populate_with_template(args.template, args.destination)
+
+    # Process course.md specifically
+    process_course_file(args.source, args.destination)
 
     # Run the file parsing and asset moving
     parse_filename_and_move(args.source, args.destination)
