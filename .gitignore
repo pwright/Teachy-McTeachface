@@ -1,5 +1,6 @@
 ## unrequired logseq files
-logseq/logseq
+logseq/logseq/bak
+logseq/logseq/.recycle
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

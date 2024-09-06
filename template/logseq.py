@@ -17,11 +17,12 @@ def populate_with_template(template, destination):
         # Copy the template contents to the destination directory
         shutil.copytree(template, destination, dirs_exist_ok=True)
 
-# Function to clean the markdown content (removes first two chars from each line)
+# Function to clean the markdown content
+# For topic.md, replace first '- ' with '# ' and all other '- ' with an empty string
 def clean_markdown_content(content, is_topic_md=False):
     # Split into YAML header and markdown if applicable
     parts = content.split('---', 2)
-    
+
     if len(parts) < 3:
         # If there isn't a valid YAML + markdown separation, treat it as plain markdown
         markdown_content = content
@@ -30,9 +31,12 @@ def clean_markdown_content(content, is_topic_md=False):
         yaml_header = '---' + parts[1] + '---'  # Keep the YAML header intact
         markdown_content = parts[2]
 
-    # For topic.md, replace '- ' with '# '
+    # For topic.md, replace the first '- ' with '# ' and all subsequent '- ' with an empty string
     if is_topic_md:
-        cleaned_markdown = markdown_content.replace('- ', '# ')
+        # Replace the first instance of '- ' with '# ' (after the first match)
+        markdown_content = markdown_content.replace('- ', '# ', 1)
+        # Replace all other instances of '- ' with an empty string
+        cleaned_markdown = markdown_content.replace('- ', '')
     else:
         # Remove the first two characters from each line for all non-topic.md files
         cleaned_markdown = re.sub(r'^..', '', markdown_content, flags=re.MULTILINE)
@@ -61,7 +65,7 @@ def process_course_file(source, destination):
 
     print(f'Processed {course_md_path} -> {new_course_md_path} (cleaned content)')
 
-# Function to process and move unit files with cleaning (excluding course.md)
+# Function to process and move unit files with cleaning (topic.md handling)
 def process_and_move_unit_file(unit_file, destination_dir):
     new_file_path = os.path.join(destination_dir, 'topic.md')
 
@@ -69,14 +73,14 @@ def process_and_move_unit_file(unit_file, destination_dir):
     with open(unit_file, 'r') as f:
         content = f.read()
 
-    # Clean markdown section and replace '- ' with '# ' for topic.md
+    # Clean markdown section and apply the first '-' substitution for topic.md
     cleaned_content = clean_markdown_content(content, is_topic_md=True)
 
     # Write to the destination as 'topic.md'
     with open(new_file_path, 'w') as f:
         f.write(cleaned_content)
 
-    print(f'Processed {unit_file} -> {new_file_path} (replaced - with # in topic.md)')
+    print(f'Processed {unit_file} -> {new_file_path} (replaced first - with # and others removed)')
 
 # Function to parse the filename and create a new directory structure
 def parse_filename_and_move(source, destination):
