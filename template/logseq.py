@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# UID: 2024-09-06-uid789 (replace with a unique identifier each time)
+
 import os
 import re
 import shutil
@@ -17,35 +19,34 @@ def populate_with_template(template, destination):
         # Copy the template contents to the destination directory
         shutil.copytree(template, destination, dirs_exist_ok=True)
 
-# Function to clean the markdown content
-# For topic.md, replace first '- ' with '# ' and all other '- ' with an empty string
-def clean_markdown_content(content, is_topic_md=False):
-    # Split into YAML header and markdown if applicable
-    parts = content.split('---', 2)
+# Function to clean markdown content, using the logic to remove top-level bullet points
+def clean_markdown_content(content, uid=None):
+    lines = content.splitlines()
 
-    if len(parts) < 3:
-        # If there isn't a valid YAML + markdown separation, treat it as plain markdown
-        markdown_content = content
-        yaml_header = ""
-    else:
-        yaml_header = '---' + parts[1] + '---'  # Keep the YAML header intact
-        markdown_content = parts[2]
+    processed_lines = []
+    for line in lines:
+        # Check if it's a top-level item (starting with '- ' and no preceding tabs or spaces)
+        if line.startswith('- ') and not line.startswith('\t'):
+            # Remove the '- ' from the start of the line and left-strip spaces
+            processed_lines.append(line[2:].lstrip())
+        elif line.startswith('\t'):
+            # Remove the '\t' from the start of the line and left-strip spaces
+            processed_lines.append(line[1:])
+        else:
+            # Keep other lines (including subtasks) unchanged
+            processed_lines.append(line)
 
-    # For topic.md, replace the first '- ' with '# ' and all subsequent '- ' with an empty string
-    if is_topic_md:
-        # Replace the first instance of '- ' with '# ' (after the first match)
-        markdown_content = markdown_content.replace('- ', '# ', 1)
-        # Replace all other instances of '- ' with an empty string
-        cleaned_markdown = markdown_content.replace('- ', '')
-    else:
-        # Remove the first two characters from each line for all non-topic.md files
-        cleaned_markdown = re.sub(r'^..', '', markdown_content, flags=re.MULTILINE)
+    # Join the processed lines back into the cleaned markdown
+    cleaned_markdown = '\n'.join(processed_lines)
 
-    # Recombine YAML header (if present) with cleaned markdown content
-    return (yaml_header + '\n' + cleaned_markdown).strip()
+    # Add the UID as a comment at the end of the markdown content
+    if uid:
+        cleaned_markdown += f"\n\n<!-- UID: {uid} -->"
+
+    return cleaned_markdown.strip()
 
 # Function to process course.md and move to destination
-def process_course_file(source, destination):
+def process_course_file(source, destination, uid):
     course_md_path = os.path.join(source, 'pages', 'course.md')
     if not os.path.exists(course_md_path):
         print(f"File {course_md_path} not found.")
@@ -55,40 +56,45 @@ def process_course_file(source, destination):
     with open(course_md_path, 'r') as f:
         content = f.read()
 
-    # Clean the markdown content
-    cleaned_content = clean_markdown_content(content)
+    # Clean the markdown content and include the UID in the markdown output
+    cleaned_content = clean_markdown_content(content, uid=uid)
 
     # Write to the destination directory directly as 'course.md'
     new_course_md_path = os.path.join(destination, 'course.md')
     with open(new_course_md_path, 'w') as f:
         f.write(cleaned_content)
 
-    print(f'Processed {course_md_path} -> {new_course_md_path} (cleaned content)')
+    print(f'Processed {course_md_path} -> {new_course_md_path} (cleaned content, UID added)')
 
 # Function to process and move unit files with cleaning (topic.md handling)
-def process_and_move_unit_file(unit_file, destination_dir):
+def process_and_move_unit_file(unit_file, destination_dir, uid):
     new_file_path = os.path.join(destination_dir, 'topic.md')
 
     # Read and clean content
     with open(unit_file, 'r') as f:
         content = f.read()
 
-    # Clean markdown section and apply the first '-' substitution for topic.md
-    cleaned_content = clean_markdown_content(content, is_topic_md=True)
+    # Clean markdown content using the top-level bullet removal logic
+    cleaned_content = clean_markdown_content(content, uid=uid)
 
     # Write to the destination as 'topic.md'
     with open(new_file_path, 'w') as f:
         f.write(cleaned_content)
 
-    print(f'Processed {unit_file} -> {new_file_path} (replaced first - with # and others removed)')
+    print(f'Processed {unit_file} -> {new_file_path} (cleaned top-level bullets, UID added)')
 
 # Function to parse the filename and create a new directory structure
-def parse_filename_and_move(source, destination):
+def parse_filename_and_move(source, destination, uid):
     pages_dir = os.path.join(source, 'pages')
     assets_dir = os.path.join(source, 'assets')
 
     for root, dirs, files in os.walk(pages_dir):
         for file in files:
+            # Skip files named 'contents.md' or 'template.md'
+            if file in ['contents.md', 'template.md']:
+                print(f"Skipping file: {file}")
+                continue
+
             if file.endswith('.md'):
                 if file == 'course.md':
                     # Skip course.md, handled separately
@@ -107,17 +113,17 @@ def parse_filename_and_move(source, destination):
                     # Move the markdown file to the new location
                     new_md_path = os.path.join(new_md_dir, parts[-1] + '.md')
 
-                    # Read and clean the content (remove first 2 characters from each line)
+                    # Read and clean the content
                     with open(original_md_path, 'r') as f:
                         content = f.read()
 
-                    cleaned_content = clean_markdown_content(content)
+                    cleaned_content = clean_markdown_content(content, uid=uid)
 
                     # Write the cleaned content
                     with open(new_md_path, 'w') as f:
                         f.write(cleaned_content)
 
-                    print(f'Processed {original_md_path} -> {new_md_path} (removed first two characters)')
+                    print(f'Processed {original_md_path} -> {new_md_path} (cleaned top-level bullets, UID added)')
 
                     # Move referenced assets from the markdown file
                     move_assets(new_md_path, assets_dir, new_md_dir)
@@ -128,7 +134,7 @@ def parse_filename_and_move(source, destination):
                     unit_name = file.replace('.md', '')
                     new_unit_dir = os.path.join(destination, unit_name)
                     os.makedirs(new_unit_dir, exist_ok=True)
-                    process_and_move_unit_file(file_path, new_unit_dir)
+                    process_and_move_unit_file(file_path, new_unit_dir, uid)
 
 # Function to move assets referenced in markdown files
 def move_assets(md_file, assets_dir, new_md_dir):
@@ -169,6 +175,9 @@ def main():
 
     args = parser.parse_args()
 
+    # Generate a unique identifier for this version of the script
+    uid = "2024-09-06-uid789"  # Replace with actual UID generation logic if desired
+
     # Clean destination directory
     clean_destination(args.destination)
 
@@ -176,10 +185,10 @@ def main():
     populate_with_template(args.template, args.destination)
 
     # Process course.md specifically
-    process_course_file(args.source, args.destination)
+    process_course_file(args.source, args.destination, uid)
 
     # Run the file parsing and asset moving
-    parse_filename_and_move(args.source, args.destination)
+    parse_filename_and_move(args.source, args.destination, uid)
 
 if __name__ == '__main__':
     main()
