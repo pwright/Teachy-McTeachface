@@ -420,4 +420,7 @@
  ;;      ;use Percent-encoding for other invalid characters
  :file/name-format :triple-lowbar
  :feature/enable-flashcards? false
- :journal/page-title-format "dd-MM-yyyy"}
+ :journal/page-title-format "dd-MM-yyyy"
+ :publishing/all-pages-public? true
+ :feature/enable-timetracking? false
+ :editor/preferred-pasting-file? true}
