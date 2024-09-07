@@ -1,10 +1,9 @@
 ---
-template: page
 icon:
   type: uil:layer-group
   color: Salmon
-order: 1  
+order: 2  
 ---
 
-- # test
--
+- # Create
+- Create a Tutors course

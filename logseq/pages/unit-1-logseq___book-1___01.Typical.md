@@ -3,7 +3,7 @@ template: page
 icon:
   type: uil:layer-group
   color: Salmon
-order: 1  
+order: 10
 ---
 
 - # Typical usage
