@@ -299,7 +299,7 @@
  ;;  :charge-range    600}   ; Default value: 600
 
  ;; Favorites to list on the left sidebar
- :favorites []
+ :favorites ["contents" "unit-2-tutors" "unit-1-logseq"]
 
  ;; Set flashcards interval.
  ;; Expected value:
