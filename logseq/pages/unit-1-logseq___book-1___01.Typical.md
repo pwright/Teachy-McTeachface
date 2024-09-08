@@ -14,6 +14,7 @@ order: 10
 		- work
 	- PKM
 - However as a markdown app, it can be used for other purposes, eg tutors courses.
+- {{video https://www.youtube.com/watch?v=cy5A-_S1bnU}}
 - ## Guides and How-tos [source](https://github.com/logseq/awesome-logseq)
   [](https://github.com/logseq/awesome-logseq#-guides-and-how-tos)
 	- [An introduction to Logseq](https://youtu.be/Vw-x7yTTO0s) By Ed (Tech and Travel with Ed)
