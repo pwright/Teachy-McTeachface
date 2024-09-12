@@ -1,5 +1,6 @@
 # Teachy-McTeachface
 
+**Change this heading to match your course name**
 
 Create tutors.dev content using Logseq
 
