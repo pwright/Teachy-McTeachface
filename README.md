@@ -2,6 +2,10 @@
 
 **Change this heading to match your course name**
 
+This repos describes how to use logseq to author tutors.dev courses.
+
+To convert from tutors to logseq, see [pwright/workshop-2024 at logseq]( https://github.com/pwright/workshop-2024/tree/logseq?tab=readme-ov-file#tutors-to-logseq ).
+
 Create tutors.dev content using Logseq
 
 **Prerequisites**
