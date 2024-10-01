@@ -1,30 +1,44 @@
+name: Build and Deploy Logseq Site
+
 on:
   push:
-    branches: [main]
-    paths-ignore:
-      - '*.md'
-permissions:
-  contents: write
+    branches:
+      - main  # Trigger the workflow when pushing to the 'main' branch
+  workflow_dispatch:  # Allow manual triggering of the workflow
+
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-    name: Run the action on logseq graph and publish
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Fetch the entire history to enable the push to gh-pages
 
-      - name: Build graph's SPA
-        uses: logseq/publish-spa@main
-        with:
-          graph-directory: logseq
-          theme-mode: dark
-          accent-color: cyan
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
 
-      - name: Add a nojekyll file # to make sure asset paths are correctly identified
-        run: touch $GITHUB_WORKSPACE/www/.nojekyll
-      - name: Remove excalidraw.js file
-        run: rm -f $GITHUB_WORKSPACE/static/js/excalidraw.js
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: www
+    - name: Run logseq Python script
+      run: python template/logseq.py logseq/ build/ template/
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+
+    - name: Install Tutors HTML
+      run: npm install -g tutors-html
+
+    - name: Run tutors-html
+      run: |
+        cd build
+        npx tutors-html
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: build/public-site  # Folder containing the generated website
+
