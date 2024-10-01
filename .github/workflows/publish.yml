@@ -24,18 +24,17 @@ jobs:
     - name: Run logseq Python script
       run: python template/logseq.py logseq/ build/ template/
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v3.6.0
       with:
-        node-version: '18.x'
-
-    - name: Install Tutors HTML
-      run: npm install -g tutors-html
-
-    - name: Run tutors-html
+        node-version: '19.6.1'
+    - name: Install tutors-html
       run: |
-        cd build
-        npx tutors-html
+          npm install --global tutors-json
+    
+    - name: Build site
+      run: |
+          tutors-json
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
