@@ -6,6 +6,9 @@ on:
       - main  # Trigger the workflow when pushing to the 'main' branch
   workflow_dispatch:  # Allow manual triggering of the workflow
 
+permissions:
+  contents: write  # Grant permission to push changes to the repository
+
 jobs:
   build:
     runs-on: ubuntu-latest
