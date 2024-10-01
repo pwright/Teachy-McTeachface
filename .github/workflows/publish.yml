@@ -27,13 +27,14 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3.6.0
       with:
-        node-version: '19.6.1'
+        node-version: '20.x'
     - name: Install tutors-html
       run: |
           npm install --global tutors-json
     
     - name: Build site
       run: |
+          cd build
           tutors-json
 
     - name: Deploy to GitHub Pages
