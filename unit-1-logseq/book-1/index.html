@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutors</title>
+    <link rel="stylesheet" href="/global.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.6.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@tailwindcss/typography@0.1.4/dist/typography.min.css" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/base16/railscasts.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vime/core@^4/themes/default.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vime/core@^4/themes/light.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@vime/core@^4/dist/vime/vime.esm.js"></script>
+  </head>
+
+  <body>
+    <div class="mx-auto px-3 antialiased bg-base-100 min-h-screen w-full 2xl:w-11/12" data-theme="light">
+  
+  <div class="p-3 shadow-lg bg-neutral text-neutral-content rounded-box nav-corner mb-1 justify-end z-40 flex mt-2">
+    
+  <div class="flex-1">
+    <div class="flex-1 px-2 mx-2 lg:block">
+      <p class="text-sm font-bold">Basics</p>
+      
+        <p class="text-sm font-bold">Logseq Experience </p>
+      
+    </div>
+  </div>
+
+  </div>
+  <div class="flex flex-wrap lg:flex-nowrap mb-2">
+    
+  <div class="shadow-lg bg-neutral rounded-box nav-corner horizontal text-neutral-content text-sm breadcrumbs flex flex-auto content-center h-12">
+    <ul>
+      
+        <li class="ml-2">
+          
+            
+  
+   <div>
+  
+    <span class="mx-2 iconify" data-icon="fluent:home-24-filled" data-height="20" style="color:#37919b">
+  </span>
+  </div>
+  
+
+            <a class="font-bold" href="../../index.html"> <span class="hidden text-xs lg:block lg:pl-2"> Home </span>
+            </a>
+          
+        </li>
+        
+          
+            <li class="ml-2">
+              
+  
+   <div>
+  
+    <span class="mx-2 iconify" data-icon="fluent:bookmark-24-filled" data-height="20" style="color:#37919b">
+  </span>
+  </div>
+  
+
+              <a class="font-bold" href="../../index.html"> <span
+                    class="hidden text-xs lg:block lg:pl-2"> Tutors using Logseq  </span> </a>
+            </li>
+          
+        
+        <li class="ml-2">
+          
+  
+   <div>
+  
+    <span class="mx-2 iconify" data-icon="fluent:beaker-24-filled" data-height="20" style="color:#557927">
+  </span>
+  </div>
+  
+
+          <a class="font-bold" href="#"> <span class="hidden text-xs lg:block lg:pl-2"> Basics</span> </a>
+        </li>
+      
+    </ul>
+  </div>
+
+    
+
+  
+      <div class="p-3 flex-wrap lg:flex-none shadow-lg bg-neutral text-neutral-content rounded-box nav-corner horizontal ml-2">
+        
+        
+          
+  
+     <a href="https://bremen-2024.slack.com/" target="_blank">
+    <div class="tooltip tooltip-bottom" data-tip="To Slack ...">
+  
+    <span class="mx-2 iconify" data-icon="fluent:chat-24-filled" data-height="20" style="color:#ba5150">
+  </span>
+  </div>
+  
+     </a>
+  
+
+        
+        
+    </div>
+  
+
+  </div>
+
+  <div class="flex m-2">
+    <div class="hidden md:block">
+      <ul class="menu py-2 w-72 shadow-lg bg-neutral text-neutral-content rounded-box card-corner sticky top-2 overflow-auto h-auto mr-2">
+        
+          <a id="menu-Basics" class="p-4 py-3 text-base" href="javascript:showtab('Basics')">  <h1 id="installinglogseq">Installing logseq</h1> </a>
+        
+          <a id="menu-Markdown" class="p-4 py-3 text-base" href="javascript:showtab('Markdown')">  <p>Logseq cheatsheet</p> </a>
+        
+          <a id="menu-Typical" class="p-4 py-3 text-base" href="javascript:showtab('Typical')">  <h1 id="typicalusage">Typical usage</h1> </a>
+        
+      </ul>
+    </div>
+    <div class="justify-end w-full bg-base-200 rounded-box rounded-xl py-1 text-base-content">
+      <article id="tab-container" class="prose xl:max-w-3xl 2xl:max-w-5xl mx-auto p-2 m-4">
+      </article>
+    </div>
+  </div>
+  
+    <div id="Basics" style="visibility:hidden"> <h1 id="installinglogseq">Installing logseq</h1>
+<ul>
+<li><strong>NOTE:</strong> Logseq is under heavy development, consider using the specific downloads at <a href="https://github.com/logseq/logseq/releases/tag/0.10.9" rel="noopener noreferrer" target="_blank">Release Desktop · logseq/logseq</a> if you encounter problems with later versions.</li>
+<li><strong>Windows</strong><ul>
+<li>Logseq works fine on Windows, but the <code>logseq.py</code> script is untested with Windows Python:
+<a href="https://logseq.com/downloads" rel="noopener noreferrer" target="_blank">Logseq downloads</a></li></ul></li>
+<li><strong>macOS</strong><ul>
+<li>Logseq works great and python setup is easy.
+<code>brew install logseq</code></li></ul></li>
+<li>Linux</li>
+</ul>
+<h2 id="useinstalllogseqonlinuxflathubhttpsflathuborgappscomlogseqlogseqorinstalllogseqonlinuxsnapstorehttpssnapcraftiologseq">    - Use <a href="https://flathub.org/apps/com.logseq.Logseq" rel="noopener noreferrer" target="_blank">Install Logseq on Linux | Flathub</a> or <a href="https://snapcraft.io/logseq" rel="noopener noreferrer" target="_blank">Install Logseq on Linux | Snap Store</a></h2>
+<!-- UID: 2024-09-06-uid789 --></div>
+  
+    <div id="Markdown" style="visibility:hidden"> <p>Logseq cheatsheet
+Sourced from <a href="https://discuss.logseq.com/t/my-own-cheatsheet/23795" rel="noopener noreferrer" target="_blank">My own Cheatsheet - Customization / Look what I built - Logseq</a>
+Page properties</p>
+<ul>
+<li>To set properties for a page, you MUST use the first block</li>
+<li>properties name must be without spaces. e.g. <code>Hebrew Name::</code> is bad, but <code>Hebrew-name::</code> is fine</li>
+<li><code>icon::</code> for setting a page icon</li>
+<li><code>alias::</code> is a way to call the same thing with different names.</li>
+<li><code>page-type::</code> to inherit icon e.g. [[locations]] and should be used a general type.<ul>
+<li>e.g. Mcdonalds is <code>page-type:: [[Locations]]</code> but it's <code>type:: [[Restaurant]]</code></li>
+<li>page-type is always pages (with [[]]) while type doesn't have (but still can).</li></ul></li>
+<li><code>type::</code> is "like a subset" of <code>page-type::</code> it can also be set to a block. and it's "more detailed version of" page-type</li>
+<li><code>tags::</code> is a way to tag a block/page.<ul>
+<li>should I use <code>#</code> with tags? how does this work?</li></ul></li>
+<li>you can link property value with <code>[[]]</code>, e.g. <code>birthday::[[10.06.1995]]</code>
+Use # for statuses and people</li>
+<li><code>#delayed</code> tasks</li>
+<li><code>#[[Or Gaist]]</code>
+TODO:</li>
+<li>use <code>/TODO</code> to make a new task</li>
+<li>you can add <code>/scheduled</code> or <code>/deadline</code>
+:LOGBOOK:
+CLOCK: [2023-11-17 Fri 20:57:34]--[2023-11-17 Fri 20:57:35] =&gt;  00:00:01
+CLOCK: [2023-11-17 Fri 20:57:35]
+:END:</li>
+<li>Add a progress bar with <code>{{renderer :todomaster}}</code> or <code>/todo master</code><ul>
+<li>{{renderer :todomaster}}
+Kanban:</li></ul></li>
+<li><code>/kanban</code></li>
+<li><a href="https://github.com/sethyuan/logseq-plugin-kanban-board/blob/master/README.en.md" rel="noopener noreferrer" target="_blank">ReadMe</a>
+namespaces</li>
+<li>use <code>/</code> at the name of the file to use it as folder structure.
+e.g. <code>[[Germany/Berlin]]</code>
+Syntax examples</li>
+<li><a href="https://www.logseqtemplates.com/t/candide/Style%20Guide" rel="noopener noreferrer" target="_blank">Style Guide</a></li>
+<li>### my<em>checklist</em>title</li>
+<li>[ ] point 1</li>
+<li>[X] point 2 </li>
+<li>[ ] point 3
+Icon selector</li>
+<li><a href="https://www.nerdfonts.com/cheat-sheet" rel="noopener noreferrer" target="_blank">NerdFonts</a></li>
+<li>🪟WinKey + .
+Plugins
+lastUpdate:: [[18.12.2023]]</li>
+<li>Show weekday and week-number
+id:: logseq-plugin-show-weekday-and-week-number
+Version:: 1.44.0
+Description:: Show weekday and week number beside journal titles. etc.. mini-calendar for daily page.
+Author:: YU000jp
+PluginID:: logseq-plugin-show-weekday-and-week-number</li>
+<li>Kanban Board
+version:: 1.17.10
+description:: Draggable, editable Kanban view.
+author:: sethyuan
+pluginId:: logseq-kanban-board</li>
+<li>Awesome UI
+version:: 2.4.0
+description:: Reworked, simplified, fixed and pumped-up Logseq layout.
+author:: yoyurec
+pluginId:: logseq-awesome-ui</li>
+<li>Logseq Calendars
+version:: 2.2.2
+description:: Sync your logseq daily note with your google, icloud or outlook calendar
+author:: Aryan Sawhney
+pluginId:: logseq-calendars-plugin<ul>
+<li><a href="https://github.com/sawhney17/logseq-calendars-plugin" rel="noopener noreferrer" target="_blank">Documentation</a></li></ul></li>
+<li>Logseq Find and Replace
+version:: 1.1.1
+description:: Find and Replace across your entire database
+author:: Aryan Sawhney
+pluginId:: logseq-find-and-replace</li>
+<li>Todo list
+version:: 1.20.0
+description:: Show your all TODO items and easy to add new items on your today's journal page
+author:: ahonn
+pluginId:: logseq-todo-plugin</li>
+<li>Journals calendar
+version:: 0.10.10
+description:: A simple journals calendar plugin for Logseq.
+author:: xyhp915
+pluginId:: logseq-journals-calendar</li>
+<li>Markdown Table Editor
+version:: 1.8.0
+description:: Markdown Table Editor
+author:: haydenull
+pluginId:: logseq-markdown-table</li>
+<li>Copy Code
+version:: 1.2.0
+description:: Copy code from code blocks to your clipboard
+author:: vyleung
+pluginId:: logseq-copy-code-plugin</li>
+<li>Bullet Threading
+version:: 1.1.4
+description:: Add bullet threading to your active blocks in Logseq.
+author:: pengx17
+pluginId:: logseq-bullet-threading</li>
+<li>Recurrence
+version:: 1.0.7 
+description:: This plugin allows you to quickly add recurring blocks based on your desired recurrence. It also allows you to delete inserted recurring blocks as well!
+author:: hkgnp
+pluginId:: logseq-recurrence-plugin</li>
+<li>Ordered Lists
+version:: 0.6.1
+description:: Ordered lists, flat or nested, multiple formats ordered lists.
+author:: sethyuan
+pluginId:: logseq-ol</li>
+<li>Awesome Links
+version:: 1.15.16
+description:: Favicons for external links, page icons for internal
+author:: yoyurec
+pluginId:: logseq-awesome-links</li>
+<li>ToDo Master
+version:: 1.10.3
+description:: Render a progress bar to gether the overall progress of the current block or page.
+author:: pengx17
+pluginId:: logseq-todo-master</li>
+<li>Tabs
+version:: 1.19.3
+description:: Open pages or blocks in tabs like working in the browser
+author:: pengx17
+pluginId:: logseq-tabs</li>
+<li>Tags
+version:: 0.1.2
+description:: A plugin that lets you find and search all of your tags.
+author:: Gidong Kwon
+pluginId:: logseq-tags</li>
+<li>Tabler picker
+version:: 1.4.0
+description:: Tabler icon picker plugin for Logseq
+author:: yoyurec
+pluginId:: logseq-tabler-picker</li>
+<li>Habit Tracker
+version:: 0.4.3
+description:: Track habits on daily journal pages.
+author:: c6p
+pluginId:: logseq-habit-tracker</li>
+<li>SmartBlocks
+version:: 3.51
+description:: A port of the roam SmartBlocks extension with a dash of Notion
+author:: Aryan Sawhney
+pluginId:: logseq-smartblocks<ul>
+<li><a href="https://github.com/sawhney17/logseq-smartblocks" rel="noopener noreferrer" target="_blank">Documentation</a></li>
+<li><a href="https://www.youtube.com/watch?v=55s-K1uAUc0" rel="noopener noreferrer" target="_blank">Youtube</a></li></ul></li>
+<li>Awesome Content
+version:: 1.2.1
+description:: Enhanced content blocks (tasks, quotes, flashcards, headers, queries, diagrams, etc…)
+author:: yoyurec
+pluginId:: logseq-awesome-content</li>
+<li>Flow Nord theme
+version:: 0.10.7
+description:: A minimalist theme that focuses on a clean and sleek interface with various color palette options.
+author:: nmartin84 and henices
+pluginId:: logseq-flow-nord-theme</li>
+</ul>
+<!-- UID: 2024-09-06-uid789 --></div>
+  
+    <div id="Typical" style="visibility:hidden"> <h1 id="typicalusage">Typical usage</h1>
+<p>Logseq is typically used for the following:</p>
+<ul>
+<li>journalling</li>
+<li>notes<ul>
+<li>study</li>
+<li>work</li></ul></li>
+<li>PKM
+However as a markdown app, it can be used for other purposes, eg tutors courses.
+{{video https://www.youtube.com/watch?v=cy5A-_S1bnU}}</li>
+</ul>
+<h2 id="guidesandhowtossourcehttpsgithubcomlogseqawesomelogseq">Guides and How-tos <a href="https://github.com/logseq/awesome-logseq" rel="noopener noreferrer" target="_blank">source</a></h2>
+<p><a href="https://github.com/logseq/awesome-logseq#-guides-and-how-tos" rel="noopener noreferrer" target="_blank"></a></p>
+<ul>
+<li><a href="https://youtu.be/Vw-x7yTTO0s" rel="noopener noreferrer" target="_blank">An introduction to Logseq</a>&nbsp;By Ed (Tech and Travel with Ed)</li>
+<li><a href="https://www.youtube.com/watch?v=Vw-x7yTTO0s" rel="noopener noreferrer" target="_blank">Logseq Update Video</a></li>
+<li><a href="https://www.youtube.com/watch?v=JCIdJBZGQLQ" rel="noopener noreferrer" target="_blank">How I use Logseq Daily</a></li>
+<li><a href="https://www.youtube.com/watch?v=Afmqowr0qEQ&ab_channel=TechWithEd" rel="noopener noreferrer" target="_blank">Logseq Update for Local File Storage</a></li>
+<li><a href="https://www.youtube.com/watch?v=jovMt17_Vd4" rel="noopener noreferrer" target="_blank">Roam Research Best Free Alternative Logseq</a>&nbsp;By Santi Younger</li>
+<li><a href="https://www.youtube.com/watch?v=43PKm0TfyNk" rel="noopener noreferrer" target="_blank">How I'm Using Logseq For My DevLog & Technical Notes</a>&nbsp;By&nbsp;<a href="https://github.com/tallguyjenks" rel="noopener noreferrer" target="_blank">@tallguyjenks</a></li>
+<li><a href="https://discuss.logseq.com/t/making-obsidian-play-nice-with-logseq/1185" rel="noopener noreferrer" target="_blank">Making Obsidian play nice with Logseq</a>&nbsp;By Luhmann</li>
+<li><a href="https://gist.github.com/idelem/a2b15c4fe7613487e16fb55ba3af1be9" rel="noopener noreferrer" target="_blank">Bookmarklets that copy webpage title + URL+ selection to md/org formats, convenient for pasting to logseq</a></li>
+<li><a href="https://devops.bike/publish-your-notes-as-site" rel="noopener noreferrer" target="_blank">Publish your notes as site</a>
+<a href="https://github.com/candideu/Logseq-Demo-Graph" rel="noopener noreferrer" target="_blank">✨Logseq Demo Graph✨</a>: Quick start Logseq graph to find your way around the app. Learn about blocks, pages, internal links, references, graphs, formatting, plugins, advanced tips and tricks, working with media files, and publishing your graph o</li>
+</ul>
+<!-- UID: 2024-09-06-uid789 --></div>
+  
+  <script>
+    function showtab(tabs) {
+      let menuItem;
+      
+      menuItem = document.getElementById('menu-Basics');
+      menuItem.className = "p-4 py-3 text-base";
+      
+      menuItem = document.getElementById('menu-Markdown');
+      menuItem.className = "p-4 py-3 text-base";
+      
+      menuItem = document.getElementById('menu-Typical');
+      menuItem.className = "p-4 py-3 text-base";
+      
+      var tab = tabs;
+      switch (tab)
+      {
+        
+          case "Basics":
+            menuItem = document.getElementById('menu-Basics');
+            menuItem.className = "p-4 py-3 text-base font-bold bordered";
+            document.getElementById('tab-container').innerHTML = document.getElementById("Basics").innerHTML;
+            break;
+        
+          case "Markdown":
+            menuItem = document.getElementById('menu-Markdown');
+            menuItem.className = "p-4 py-3 text-base font-bold bordered";
+            document.getElementById('tab-container').innerHTML = document.getElementById("Markdown").innerHTML;
+            break;
+        
+          case "Typical":
+            menuItem = document.getElementById('menu-Typical');
+            menuItem.className = "p-4 py-3 text-base font-bold bordered";
+            document.getElementById('tab-container').innerHTML = document.getElementById("Typical").innerHTML;
+            break;
+        
+          default:
+            document.getElementById('tab-container').innerHTML = document.getElementById("00").innerHTML;
+            break;
+      }
+    }
+  </script>
+</div>
+    <script src="https://code.iconify.design/2/2.1.2/iconify.min.js"></script>
+  </body>
+</html>
