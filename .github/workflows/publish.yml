@@ -34,11 +34,16 @@ jobs:
     - name: Install tutors-html
       run: |
           npm install --global tutors-html
+          npm install --global tutors-json
     
     - name: Build site
       run: |
           cd build
+          tutors-json
           tutors-html
+    - name: Install rsync
+      run: |
+        apt-get update && apt-get install -y rsync
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
