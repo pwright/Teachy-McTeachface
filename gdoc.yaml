@@ -1,0 +1,2 @@
+separator: "_"          # Custom separator
+strip_leading_dash: false  # Disable stripping leading '- '
